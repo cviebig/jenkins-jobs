@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.5">
+    <scms>
+      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>https://github.com/bkchr/compute.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/develop</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.LocalBranch>
+            <localBranch>develop</localBranch>
+          </hudson.plugins.git.extensions.impl.LocalBranch>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>compute</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@bitbucket.org:cviebig/ocelot.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>ocelot</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+      <hudson.plugins.git.GitSCM plugin="git@2.4.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@bitbucket.org:cviebig/build-ocelot.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir>build</relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+    </scms>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>cviebig--arch-build-ocl-intel</upstreamProjects>
+      <threshold>
+        <name>UNSTABLE</name>
+        <ordinal>1</ordinal>
+        <color>YELLOW</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>cd build
+./run.sh intel ${BUILD_NUMBER}</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
