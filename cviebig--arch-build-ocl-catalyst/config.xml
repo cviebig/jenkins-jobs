@@ -38,11 +38,12 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <org.jenkinsci.plugins.dockerbuildstep.DockerBuilder plugin="docker-build-step@1.26">
+    <org.jenkinsci.plugins.dockerbuildstep.DockerBuilder plugin="docker-build-step@1.32">
       <dockerCmd class="org.jenkinsci.plugins.dockerbuildstep.cmd.CreateImageCommand">
         <dockerFolder>$WORKSPACE</dockerFolder>
         <imageTag>cviebig/arch-build-ocl-catalyst</imageTag>
-        <noCache>false</noCache>
+        <noCache>true</noCache>
+        <rm>true</rm>
       </dockerCmd>
     </org.jenkinsci.plugins.dockerbuildstep.DockerBuilder>
   </builders>
